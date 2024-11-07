@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <title>Script Generator</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Script Generator</h1>
+
+        <!-- Check if user is logged in -->
+        {% if session['username'] %}
+            <p>Welcome, {{ session['username'] }}!</p>
+            <a href="{{ url_for('logout') }}" class="button">Logout</a>
+        {% else %}
+            <p>You need to be logged in to generate scripts.</p>
+            <a href="{{ url_for('login') }}" class="button">Login</a>
+            <a href="{{ url_for('register') }}" class="button">Register</a>
+        {% endif %}
+
+        {% if session['username'] %}
+        <form id="script-form">
+            <textarea id="prompt" placeholder="Enter your script prompt"></textarea>
+            <div>
+                <label for="style">Style:</label>
+                <select id="style">
+                    <option value="humorous">Humorous</option>
+                    <option value="dramatic">Dramatic</option>
+                    <option value="informative">Informative</option>
+                    <option value="inspirational">Inspirational</option>
+                    <option value="action-packed">Action-packed</option>
+                </select>
+            </div>
+            <div>
+                <label for="length">Length:</label>
+                <select id="length">
+                    <option value="short">Short</option>
+                    <option value="medium">Medium</option>
+                    <option value="long">Long</option>
+                </select>
+            </div>
+            <button type="button" id="generate-button">Generate Script</button>
+        </form>
+        <h2>Generated Script:</h2>
+        <div id="script-output"></div>
+        {% endif %}
+    </div>
+</body>
+</html>
